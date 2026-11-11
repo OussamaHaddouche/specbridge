@@ -1,46 +1,47 @@
 # Roadmap
 
-## Phase 0 — Contract
+## Phase 0 — Contracts
 
-- [ ] Finalize contract shape (Zod) and fixtures
-- [ ] Define finding and severity types
-- [ ] Document TypeScript resolution limits for v1
+- [x] Finish the contract file format and examples
+- [x] Finish the project config shape
+- [x] Document how components are resolved (`resolve` required; no auto-discovery)
+- [x] Define how findings are structured
 
-## Phase 1 — API auditor
+## Phase 1 — First useful checker
 
-- [ ] `packages/cli` + `packages/core`
-- [ ] Load and validate contracts
-- [ ] Resolve exports and props types; compare against contract
-- [ ] Console and JSON reporters
+- [ ] CLI + shared library packages
+- [ ] Load contracts and resolve components via `resolve`
+- [ ] Compare TypeScript props to contracts
+- [ ] Print results in the terminal and as JSON
+- [ ] Markdown report
 
-## Phase 2 — Tokens and Storybook
-
-- [ ] CSS custom-property declaration checks (SPB201)
-- [ ] CSF story export checks (SPB301)
-- [ ] Markdown reporter
-
-## Phase 3 — CI
+## Phase 2 — CI
 
 - [ ] GitHub Actions example
-- [ ] SARIF output
+- [ ] SARIF output for code scanning UIs
 - [ ] Configurable failure thresholds
 
-## Phase 4 — Runtime
+## Phase 3 — Runtime checks
 
-- [ ] Optional Storybook + Playwright checks
-- [ ] Explicit selectors, computed styles, roles, interactions
+- [ ] Optional Playwright checks
+- [ ] Explicit selectors, styles, roles, and interactions
 
-## Phase 5 — Importers and authoring
+## Phase 4 — Import and authoring help
 
-- [ ] Import path that writes SpecBridge JSON
-- [ ] Figma (or similar) export prototype
-- [ ] Scaffold / draft-from-TypeScript helpers
-- [ ] Contract diffing
+- [ ] Generate SpecBridge contracts from other sources
+- [ ] Early Figma (or similar) export path
+- [ ] Helpers that draft contracts from TypeScript
+- [ ] Diff two contract versions
 
 ## First public demo
 
-- [ ] Example React library with at least three contracted components
-- [ ] Intentional mismatches covered by implemented rules
-- [ ] Passing and failing fixtures with correct exit codes
+- [ ] Small example React library with at least three contracted components
+- [ ] Deliberate mismatches that the rules catch
+- [ ] Passing and failing runs with the right exit codes
 - [ ] Tests in CI
-- [ ] Short demo and documented limitations
+- [ ] Short demo and known limits
+
+## Still open
+
+- Final package and tooling choices
+- How small the first demo can be while still feeling real

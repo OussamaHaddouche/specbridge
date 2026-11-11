@@ -1,28 +1,36 @@
 # Rules
 
-| Rule ID | Description | Default severity |
+Each mismatch SpecBridge finds has an ID, a short message, and a severity.
+
+| ID | Meaning | Default |
 |---|---|---|
-| SPB001 | Component export is missing | Error |
-| SPB002 | Props type cannot be resolved | Error |
-| SPB101 | Contract prop missing from implementation | Error |
-| SPB102 | Prop type does not match contract | Error |
-| SPB103 | Requiredness does not match contract | Error |
-| SPB104 | Contract union value missing in implementation | Error |
-| SPB105 | Implementation exposes an undocumented prop | Warning |
-| SPB201 | Expected CSS token is not declared | Error |
-| SPB301 | Required Storybook story is missing | Warning |
-| SPB401 | Runtime assertion failed | Error |
+| SPB001 | SpecBridge could not resolve the component (`resolve` missing/incomplete, file missing, or export missing) | Error |
+| SPB002 | SpecBridge could not read the props type named in `resolve.propsType` | Error |
+| SPB101 | The contract lists a prop that the code does not have | Error |
+| SPB102 | The prop’s type in code does not match the contract | Error |
+| SPB103 | Required vs optional does not match | Error |
+| SPB104 | An allowed value from the contract is missing in code | Error |
+| SPB105 | The code has a public prop the contract never mentioned | Warning |
+| SPB106 | The code allows a string value the contract never listed | Warning |
+| SPB401 | A runtime check failed | Error |
 
 ## Severity
 
-- Errors fail CI when `failOn` is `"error"` (default)
-- Warnings do not fail CI by default
-- Per-rule severity is configurable in project config
+- **Error** — fails CI by default
+- **Warning** — shown, but does not fail CI by default
 
-## Findings
+You can change this in project config (`rules` and `failOn` in [config.md](./config.md)).
 
-Each finding includes rule ID, severity, component name, message, expected vs actual when relevant, and file location when available.
+## What each finding includes
 
-## Example
+Concrete JSON fields for findings and the full report: [findings.md](./findings.md).
 
-Contract requires `variant: "primary" | "secondary" | "danger"`. Implementation omits `danger` → **SPB104** at the props type location.
+## Examples
+
+The contract says `variant` may be `primary`, `secondary`, or `danger`.  
+The code only allows `primary` and `secondary`.  
+SpecBridge reports **SPB104**.
+
+The contract lists those same three values.  
+The code also allows `ghost`.  
+SpecBridge reports **SPB106**.

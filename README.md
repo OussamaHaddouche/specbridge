@@ -1,131 +1,93 @@
 # SpecBridge
 
-**Blueprint · not implemented yet**
+**Blueprint · not built yet**
 
-SpecBridge turns design-system expectations into executable contracts, so component API and token drift get caught in development and CI instead of manual review.
+SpecBridge checks that your design-system components still match what the team agreed on.
 
-Primary target: **React + TypeScript** component libraries. The core stays framework-agnostic so other adapters can follow.
+Example: the team agreed `Button` has variants `primary`, `secondary`, and `danger`. Someone removes `danger` from the TypeScript props. SpecBridge fails the check and points at the mismatch — in local development or CI — before that drift ships.
 
-Not a pixel-perfect Figma comparison tool. First job: catch mismatches in component APIs, supported values, design-token declarations, and documented Storybook examples.
+It is built first for **React + TypeScript** component libraries.
 
-## Problem
+## What you do
 
-A design system has two representations of each component:
+1. Write a small contract file per component, named after it (`Button.contract.json`), including a `resolve` block that points at the file, export, and props type.
+2. Add `specbridge.config.json` at the project root and point it at your contracts.
+3. Run `specbridge check`.
 
-1. **Contract** — variants, sizes, states, tokens, and examples the team agrees on
-2. **Implementation** — what the code actually exports and supports
+SpecBridge reads the props type you named, and compares it to the contract.
 
-Those drift. SpecBridge makes the contract machine-readable and the check repeatable.
+## What a contract looks like
 
-## How it works
-
-```
-SpecBridge contracts (JSON)
-        │
-        ▼
-   SpecBridge check
-    │         │         │
-    ▼         ▼         ▼
- TypeScript  Tokens   Stories
-    │         │         │
-    └──── unified findings ────┐
-         CLI · Markdown · SARIF
-```
-
-Audits read a single SpecBridge contract format. The contract is the source of truth for the public API: missing contract values are errors; undocumented public props are warnings by default. Design-tool or Storybook integrations, when added, emit SpecBridge JSON rather than teaching `check` new formats.
-
-## Scope
-
-| In scope | Out of scope |
-|---|---|
-| Prop names, requiredness, primitive types, string unions | Pixel-perfect Figma ↔ browser diffs |
-| CSS custom-property existence | Proving a token is applied in every style path |
-| Required Storybook story exports | Supporting every CSS-in-JS system |
-| CLI + CI reports (JSON, Markdown, SARIF) | Every frontend framework on day one |
-| Read-only audits | Replacing TypeScript, ESLint, or visual regression |
-
-## Contract
+`contracts/Button.contract.json`:
 
 ```json
 {
   "schemaVersion": 1,
-  "component": {
-    "name": "Button",
-    "exportName": "Button",
+  "resolve": {
     "source": "src/components/Button/Button.tsx",
+    "exportName": "Button",
     "propsType": "ButtonProps"
   },
   "props": {
     "variant": {
-      "kind": "string-union",
       "values": ["primary", "secondary", "danger"],
       "required": false,
       "default": "primary"
+    },
+    "disabled": {
+      "type": "boolean",
+      "required": false,
+      "default": false
     }
-  },
-  "tokens": [
-    {
-      "name": "color.action.primary",
-      "cssVariable": "--color-action-primary",
-      "requiredInImplementation": true
-    }
-  ],
-  "stories": ["Primary", "Secondary", "Danger", "Disabled"]
+  }
 }
 ```
 
-See [`docs/contract-format.md`](docs/contract-format.md).
+That file means:
 
-## Checks
+- check `Button` / `ButtonProps` in `src/components/Button/Button.tsx`
+- `variant` may be `primary`, `secondary`, or `danger`
+- `disabled` is an optional boolean
 
-| Area | Rules |
-|---|---|
-| Component API vs TypeScript | SPB001–SPB105 |
-| Token declarations | SPB201 |
-| Storybook exports | SPB301 |
-| Runtime assertions | SPB401 |
+More detail: [docs/contract-format.md](docs/contract-format.md).
 
-Severity is configurable. Warnings do not fail CI by default.
+## What SpecBridge reports
 
-See [`docs/rules.md`](docs/rules.md).
+If the code no longer matches the contract, you get a clear finding, for example:
 
-## CLI
+- the component could not be resolved from `resolve`
+- a prop from the contract is missing in code
+- an allowed value like `danger` disappeared
+- a public prop exists in code but not in the contract (warning by default)
+
+Rule list: [docs/rules.md](docs/rules.md).  
+Findings / JSON report: [docs/findings.md](docs/findings.md).  
+Project config: [docs/config.md](docs/config.md).  
+How resolve works: [docs/resolve.md](docs/resolve.md).
+
+## Planned commands
 
 ```bash
 pnpm specbridge check
 pnpm specbridge check --format json --output .specbridge/report.json
-pnpm specbridge check --format sarif --output .specbridge/report.sarif
 ```
 
-Exit codes: `0` ok · `1` threshold violations · `2` config/analysis failure
+- `0` — all good
+- `1` — mismatches that should fail the build
+- `2` — SpecBridge could not run the check (bad config, and similar)
 
-## Repository
+## What this is not
 
-```
-packages/
-  cli/
-  core/
-examples/
-  react-component-library/
-docs/
-```
+- Not a Figma pixel comparison tool
+- Not a replacement for TypeScript, ESLint, or visual regression
+- Not trying to support every UI framework on day one
 
-Planned stack: TypeScript, Node, pnpm, Commander, ts-morph, Zod, Vitest; Playwright for later runtime checks.
+## Status
 
-## Roadmap
+Docs and product shape only. Implementation comes next.
 
-| Now | Next | Later |
-|---|---|---|
-| Contract schema + fixtures | Token + Storybook static checks | Runtime Storybook/Playwright checks |
-| TypeScript API auditor + CLI | CI example + SARIF | Design-tool importers |
-| Console + JSON reports | Markdown reports | Scaffold / draft helpers |
-
-See [`docs/roadmap.md`](docs/roadmap.md).
-
-## Contributing
-
-Blueprint only. Rule proposals should include the problem caught, passing and failing fixtures, expected finding (ID + severity), and known false-positive risks.
+See the phased plan in [docs/roadmap.md](docs/roadmap.md).
 
 ## License
 
-MIT — see [`LICENSE`](LICENSE).
+MIT — see [LICENSE](LICENSE).

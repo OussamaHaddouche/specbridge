@@ -1,85 +1,100 @@
 # Contract format
 
-Contracts are JSON files validated with Zod. `check` accepts only this format.
+A contract is a JSON file that answers: **what did we agree this component supports?**
 
-## Principles
+One contract per component. The file name is the component name:
 
-- Describe the public agreement: component identity, props, values, tokens, required examples
-- Avoid implementation details (hooks, CSS Modules, internal folder layout)
-- The contract is the source of truth for public API expectations
+- `Button.contract.json` → Button
+- `TextField.contract.json` → TextField
 
-## Shape
+Put them in a folder such as `contracts/`. Project config tells SpecBridge where that folder is — see [config.md](./config.md).
+
+Every contract must include a **`resolve`** block so SpecBridge knows which file, export, and props type to check. There is no automatic component search.
+
+## Full example
+
+`contracts/Button.contract.json`:
 
 ```json
 {
   "schemaVersion": 1,
-  "component": {
-    "name": "Button",
-    "exportName": "Button",
+  "resolve": {
     "source": "src/components/Button/Button.tsx",
+    "exportName": "Button",
     "propsType": "ButtonProps"
   },
   "props": {
     "variant": {
-      "kind": "string-union",
       "values": ["primary", "secondary", "danger"],
       "required": false,
       "default": "primary"
     },
     "size": {
-      "kind": "string-union",
       "values": ["sm", "md", "lg"],
       "required": false,
       "default": "md"
     },
     "disabled": {
-      "kind": "boolean",
+      "type": "boolean",
       "required": false,
       "default": false
+    },
+    "label": {
+      "type": "string",
+      "required": true
     }
-  },
-  "tokens": [
-    {
-      "name": "color.action.primary",
-      "cssVariable": "--color-action-primary",
-      "requiredInImplementation": true
-    }
-  ],
-  "stories": ["Primary", "Secondary", "Danger", "Disabled"]
+  }
 }
 ```
 
-## Fields
+## Resolve
 
-| Field | Role |
+| Field | Meaning |
 |---|---|
-| `schemaVersion` | Version of the contract language |
-| `component.source` | Source file for the TypeScript analyzer |
-| `component.propsType` | Named props type to resolve |
-| `props.*.kind` | e.g. `string-union`, `boolean`, and other primitives as needed |
-| `tokens` | CSS custom properties used by token checks |
-| `stories` | Required CSF export names |
+| `source` | Path to the component file (from the project root) |
+| `exportName` | Export name in that file |
+| `propsType` | TypeScript props type to read |
 
-## Config
+All three fields are required. Details: [resolve.md](./resolve.md).
+
+## Props
+
+Each entry under `props` is one public prop.
+
+**Enumerated strings** — list the allowed values:
 
 ```json
-{
-  "contracts": "contracts/**/*.json",
-  "typescript": {
-    "tsconfig": "tsconfig.json",
-    "include": ["src/**/*.{ts,tsx}"]
-  },
-  "tokens": {
-    "cssFiles": ["src/styles/tokens.css"],
-    "mode": "css-custom-properties"
-  },
-  "storybook": {
-    "stories": ["src/**/*.stories.ts", "src/**/*.stories.tsx"]
-  },
-  "rules": {
-    "SPB105": "warning",
-    "SPB301": "warning"
-  },
-  "failOn": "error"
+"variant": {
+  "values": ["primary", "secondary", "danger"],
+  "required": false,
+  "default": "primary"
 }
 ```
+
+**Simple types** — use `type`:
+
+```json
+"disabled": {
+  "type": "boolean",
+  "required": false,
+  "default": false
+}
+```
+
+Allowed `type` values in v1: `boolean`, `string`, `number`.
+
+| Field | Meaning |
+|---|---|
+| `values` | Allowed string choices |
+| `type` | `boolean`, `string`, or `number` |
+| `required` | Must callers pass this prop? |
+| `default` | Documented default |
+
+Use either `values` or `type`, not both on the same prop.
+
+## Project config
+
+Where contracts live, TypeScript settings, and rule severity live in **`specbridge.config.json`** at the project root.
+
+Full shape, required fields, and defaults: [config.md](./config.md).  
+How resolve works: [resolve.md](./resolve.md).
