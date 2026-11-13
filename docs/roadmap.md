@@ -1,13 +1,13 @@
 # Roadmap
 
-## Phase 0 — Contracts
+## Phase 0: Contracts
 
 - [x] Finish the contract file format and examples
 - [x] Finish the project config shape
 - [x] Document how components are resolved (`resolve` required; no auto-discovery)
 - [x] Define how findings are structured
 
-## Phase 1 — First useful checker
+## Phase 1: First useful checker
 
 - [ ] CLI + shared library packages
 - [ ] Load contracts and resolve components via `resolve`
@@ -15,18 +15,18 @@
 - [ ] Print results in the terminal and as JSON
 - [ ] Markdown report
 
-## Phase 2 — CI
+## Phase 2: CI
 
 - [ ] GitHub Actions example
 - [ ] SARIF output for code scanning UIs
 - [ ] Configurable failure thresholds
 
-## Phase 3 — Runtime checks
+## Phase 3: Runtime checks
 
 - [ ] Optional Playwright checks
 - [ ] Explicit selectors, styles, roles, and interactions
 
-## Phase 4 — Import and authoring help
+## Phase 4: Import and authoring help
 
 - [ ] Generate SpecBridge contracts from other sources
 - [ ] Early Figma (or similar) export path

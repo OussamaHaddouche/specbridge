@@ -2,19 +2,17 @@
 
 **Blueprint · not built yet**
 
-SpecBridge checks that your design-system components still match what the team agreed on.
+SpecBridge checks that design-system components still match what the team agreed on. It targets React + TypeScript component libraries first.
 
-Example: the team agreed `Button` has variants `primary`, `secondary`, and `danger`. Someone removes `danger` from the TypeScript props. SpecBridge fails the check and points at the mismatch — in local development or CI — before that drift ships.
-
-It is built first for **React + TypeScript** component libraries.
+Example: the team agreed `Button` has variants `primary`, `secondary`, and `danger`. Someone removes `danger` from the TypeScript props. SpecBridge fails the check and points at the mismatch, in local development or CI, before that drift ships.
 
 ## What you do
 
-1. Write a small contract file per component, named after it (`Button.contract.json`), including a `resolve` block that points at the file, export, and props type.
+1. Write one contract file per component, named after it (`Button.contract.json`), with a `resolve` block that points at the file, export, and props type.
 2. Add `specbridge.config.json` at the project root and point it at your contracts.
 3. Run `specbridge check`.
 
-SpecBridge reads the props type you named, and compares it to the contract.
+SpecBridge reads the props type you named and compares it to the contract.
 
 ## What a contract looks like
 
@@ -45,7 +43,7 @@ SpecBridge reads the props type you named, and compares it to the contract.
 
 That file means:
 
-- check `Button` / `ButtonProps` in `src/components/Button/Button.tsx`
+- Check `Button` / `ButtonProps` in `src/components/Button/Button.tsx`
 - `variant` may be `primary`, `secondary`, or `danger`
 - `disabled` is an optional boolean
 
@@ -53,7 +51,7 @@ More detail: [docs/contract-format.md](docs/contract-format.md).
 
 ## What SpecBridge reports
 
-If the code no longer matches the contract, you get a clear finding, for example:
+When code no longer matches the contract, you get a finding such as:
 
 - the component could not be resolved from `resolve`
 - a prop from the contract is missing in code
@@ -72,9 +70,9 @@ pnpm specbridge check
 pnpm specbridge check --format json --output .specbridge/report.json
 ```
 
-- `0` — all good
-- `1` — mismatches that should fail the build
-- `2` — SpecBridge could not run the check (bad config, and similar)
+- `0`: all good
+- `1`: mismatches that should fail the build
+- `2`: SpecBridge could not run the check (bad config, missing contracts, and similar)
 
 ## What this is not
 
@@ -90,4 +88,4 @@ See the phased plan in [docs/roadmap.md](docs/roadmap.md).
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+MIT. See [LICENSE](LICENSE).

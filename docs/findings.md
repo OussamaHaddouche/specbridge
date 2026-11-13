@@ -1,6 +1,6 @@
 # Findings and reports
 
-When you run `specbridge check`, SpecBridge produces **findings** (individual mismatches) grouped **by component** in a JSON **report**.
+When you run `specbridge check`, SpecBridge produces findings (individual mismatches) grouped by component in a JSON report.
 
 Rule meanings and default severities: [rules.md](./rules.md).
 
@@ -20,7 +20,7 @@ One finding is one mismatch. Inside a report it lives under its component, so it
 ```
 
 | Field | Required | Meaning |
-|---|---|---|
+| --- | --- | --- |
 | `ruleId` | Yes | Rule ID, such as `SPB104` |
 | `severity` | Yes | `error` or `warning` (after config overrides) |
 | `message` | Yes | Human-readable summary |
@@ -28,7 +28,7 @@ One finding is one mismatch. Inside a report it lives under its component, so it
 | `expected` | No | What the contract (or resolve) required |
 | `actual` | No | What the code has |
 
-`expected` and `actual` are JSON values (string, number, boolean, array, and similar) — not forced to strings.
+`expected` and `actual` are JSON values (string, number, boolean, array, and similar), not forced to strings.
 
 For resolve failures (SPB001 / SPB002), omit `prop` when it does not apply.
 
@@ -72,7 +72,7 @@ JSON output (`--format json`) groups findings by component:
 ```
 
 | Field | Meaning |
-|---|---|
+| --- | --- |
 | `schemaVersion` | Report shape version |
 | `toolVersion` | SpecBridge version that produced the report |
 | `summary.checked` | Contracts checked in this run |
@@ -88,9 +88,9 @@ A clean run uses the same shape: every checked component is listed, each with `"
 ## Exit codes and output
 
 | Code | Meaning | JSON report |
-|---|---|---|
+| --- | --- | --- |
 | `0` | No failing findings (per `failOn`) | Written when requested |
 | `1` | Failing findings | Written when requested |
-| `2` | SpecBridge could not run (bad config, and similar) | Not written — explain on stderr |
+| `2` | SpecBridge could not run (bad config, and similar) | Not written; explain on stderr |
 
 Terminal output should also group by component. Markdown and SARIF come later; they should map from this shape.

@@ -1,10 +1,10 @@
 # How SpecBridge resolves a component
 
-SpecBridge does **not** search the repo for components. Every contract must say exactly which file, export, and props type to check.
+SpecBridge does not search the repo for components. Every contract must say exactly which file, export, and props type to check.
 
-That keeps checks predictable: no guessed matches, no “almost the right file.”
+That keeps checks predictable: no guessed matches, no almost-right file.
 
-## Required `resolve` block
+## Required resolve block
 
 Each contract includes a `resolve` section:
 
@@ -27,26 +27,26 @@ Each contract includes a `resolve` section:
 ```
 
 | Field | Required | Meaning |
-|---|---|---|
+| --- | --- | --- |
 | `source` | Yes | Path to the component file, from the project root |
 | `exportName` | Yes | Export SpecBridge should use in that file |
 | `propsType` | Yes | TypeScript props type SpecBridge should read |
 
-There are no fallbacks (no `ButtonProps` guessing, no inferring props from `forwardRef`).
+There are no fallbacks. SpecBridge does not guess `ButtonProps` or infer props from `forwardRef`.
 
 ## Step by step
 
-1. Take the component name from the contract file: `Button.contract.json` → **Button** (used in findings and reports).
+1. Take the component name from the contract file: `Button.contract.json` → Button (used in findings and reports).
 2. Read `resolve` from the contract.
 3. Open `resolve.source`.
 4. Find the export named `resolve.exportName`.
 5. Read the type named `resolve.propsType`.
 6. Compare that type’s props to the contract.
 
-## If resolve fails
+## When resolve fails
 
 | What happened | Result |
-|---|---|
+| --- | --- |
 | `resolve` missing or incomplete | Error SPB001 |
 | `source` file not found | Error SPB001 |
 | `exportName` not found in that file | Error SPB001 |
