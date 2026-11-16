@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "resolve": {
+    "source": "src/components/Button/Button.tsx",
+    "exportName": "Button",
+    "propsType": "ButtonProps"
+  },
+  "props": {
+    "variant": {
+      "values": ["primary", "secondary", "danger"],
+      "required": false,
+      "default": "primary"
+    },
+    "size": {
+      "values": ["sm", "md", "lg"],
+      "required": false,
+      "default": "md"
+    },
+    "disabled": {
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    "label": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

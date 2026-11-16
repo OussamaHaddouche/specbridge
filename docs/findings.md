@@ -41,7 +41,7 @@ JSON output (`--format json`) groups findings by component:
 ```json
 {
   "schemaVersion": 1,
-  "toolVersion": "0.0.0",
+  "toolVersion": "0.1.0",
   "summary": {
     "checked": 3,
     "errors": 1,

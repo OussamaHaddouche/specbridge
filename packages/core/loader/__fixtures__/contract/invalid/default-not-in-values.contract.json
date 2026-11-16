@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "resolve": {
+    "source": "src/components/Button/Button.tsx",
+    "exportName": "Button",
+    "propsType": "ButtonProps"
+  },
+  "props": {
+    "size": {
+      "values": ["sm", "md", "lg"],
+      "required": false,
+      "default": "xl"
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "typescript": {
+    "tsconfig": "tsconfig.json"
+  },
+  "failOn": "error"
+}

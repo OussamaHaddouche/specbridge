@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "resolve": {
+    "source": "src/Button.tsx",
+    "exportName": "Button",
+    "propsType": "ButtonProps"
+  },
+  "props": {
+    "label": {
+      "type": "string",
+      "required": true
+    },
+    "variant": {
+      "values": ["primary", "secondary", "danger"],
+      "required": true,
+      "default": "primary"
+    },
+    "disabled": {
+      "type": "boolean",
+      "required": false,
+      "default": false
+    }
+  }
+}

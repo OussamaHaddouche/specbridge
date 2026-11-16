@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "resolve": {
+    "source": "src/components/Button/Button.tsx",
+    "exportName": "Button",
+    "propsType": "ButtonProps"
+  },
+  "props": {
+    "disabled": {
+      "type": "boolean",
+      "required": false,
+      "default": "nope"
+    }
+  }
+}

@@ -1,0 +1,4 @@
+{
+  "contracts": "contracts/**/*.contract.json",
+  "failOn": "info"
+}
