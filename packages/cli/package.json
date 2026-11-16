@@ -1,0 +1,22 @@
+{
+  "name": "@specbridge/cli",
+  "version": "0.1.0",
+  "type": "module",
+  "bin": {
+    "specbridge": "./bin/specbridge.mjs"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "@specbridge/core": "workspace:*",
+    "tsx": "^4.21.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "typescript": "~5.9.3",
+    "vitest": "^5.1.0"
+  }
+}

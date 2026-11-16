@@ -166,6 +166,25 @@ importers:
 
   .: {}
 
+  packages/cli:
+    dependencies:
+      '@specbridge/core':
+        specifier: workspace:*
+        version: link:../core
+      tsx:
+        specifier: ^4.21.0
+        version: 4.23.15
+    devDependencies:
+      '@types/node':
+        specifier: ^26.6.6
+        version: 26.6.6
+      typescript:
+        specifier: ~5.9.3
+        version: 5.9.3
+      vitest:
+        specifier: ^5.1.0
+        version: 5.1.0(@types/node@26.6.6)(vite@8.3.7(@types/node@26.6.6)(esbuild@0.28.2)(tsx@4.23.15))
+
   packages/core:
     dependencies:
       typescript:
@@ -943,7 +962,6 @@ snapshots:
       '@esbuild/win32-arm64': 0.28.2
       '@esbuild/win32-ia32': 0.28.2
       '@esbuild/win32-x64': 0.28.2
-    optional: true
 
   estree-walker@3.0.3:
     dependencies:
@@ -1064,7 +1082,6 @@ snapshots:
       esbuild: 0.28.2
     optionalDependencies:
       fsevents: 2.3.3
-    optional: true
 
   typescript@5.9.3: {}
 

@@ -1,17 +1,19 @@
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { FatalLoadError } from "../loader/fatal-error";
-import { runCheck } from "./run-check";
+import { isFailing, runCheck } from "./run-check";
+import type { Report } from "./report";
 
 const fixturesDir = path.join(import.meta.dirname, "__fixtures__");
 const projectDir = path.join(fixturesDir, "project");
 
 describe("runCheck", () => {
   it("checks all contracts and builds a report", () => {
-    const report = runCheck(projectDir);
+    const { report, failed } = runCheck(projectDir);
 
+    expect(failed).toBe(true);
     expect(report.schemaVersion).toBe(1);
-    expect(report.toolVersion).toBe("0.1.0");
+    expect(report.toolVersion).toBe("0.2.0");
     expect(report.summary).toEqual({
       checked: 2,
       errors: 1,
@@ -53,5 +55,40 @@ describe("runCheck", () => {
       expect(error).toBeInstanceOf(FatalLoadError);
       expect(error).toMatchObject({ code: "CONFIG_NOT_FOUND" });
     }
+  });
+});
+
+describe("isFailing", () => {
+  function reportWith(summary: Report["summary"]): Report {
+    return {
+      schemaVersion: 1,
+      toolVersion: "0.1.0",
+      summary,
+      components: [],
+    };
+  }
+
+  it("fails on errors when failOn is error", () => {
+    expect(
+      isFailing(reportWith({ checked: 1, errors: 1, warnings: 0 }), "error"),
+    ).toBe(true);
+  });
+
+  it("ignores warnings when failOn is error", () => {
+    expect(
+      isFailing(reportWith({ checked: 1, errors: 0, warnings: 2 }), "error"),
+    ).toBe(false);
+  });
+
+  it("fails on warnings when failOn is warning", () => {
+    expect(
+      isFailing(reportWith({ checked: 1, errors: 0, warnings: 1 }), "warning"),
+    ).toBe(true);
+  });
+
+  it("passes when there are no findings", () => {
+    expect(
+      isFailing(reportWith({ checked: 1, errors: 0, warnings: 0 }), "warning"),
+    ).toBe(false);
   });
 });
