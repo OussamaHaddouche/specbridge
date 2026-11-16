@@ -9,11 +9,13 @@
 
 ## Phase 1: First useful checker
 
-- [ ] CLI + shared library packages
-- [ ] Load contracts and resolve components via `resolve`
-- [ ] Compare TypeScript props to contracts
-- [ ] Print results in the terminal and as JSON
+- [x] CLI + shared library packages
+- [x] Load contracts and resolve components via `resolve`
+- [x] Compare TypeScript props to contracts
+- [x] Print results in the terminal and as JSON
 - [ ] Markdown report
+
+[v0.1.0](https://github.com/OussamaHaddouche/specbridge/releases/tag/v0.1.0) covers the checked items above (`@specbridge/cli` 0.1.0, `@specbridge/core` 0.2.0). Packages run from this monorepo; they are not on npm yet.
 
 ## Phase 2: CI
 
@@ -43,5 +45,5 @@
 
 ## Still open
 
-- Final package and tooling choices
+- How to build and publish the packages to npm
 - How small the first demo can be while still feeling real

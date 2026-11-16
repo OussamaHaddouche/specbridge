@@ -1,6 +1,6 @@
 # SpecBridge
 
-**Blueprint · not built yet**
+**v0.1.0** · runnable from this monorepo (not on npm yet)
 
 SpecBridge checks that design-system components still match what the team agreed on. It targets React + TypeScript component libraries first.
 
@@ -63,16 +63,22 @@ Findings / JSON report: [docs/findings.md](docs/findings.md).
 Project config: [docs/config.md](docs/config.md).  
 How resolve works: [docs/resolve.md](docs/resolve.md).
 
-## Planned commands
+## Commands
+
+After `pnpm install` at the repo root:
 
 ```bash
 pnpm specbridge check
 pnpm specbridge check --format json --output .specbridge/report.json
 ```
 
-- `0`: all good
-- `1`: mismatches that should fail the build
-- `2`: SpecBridge could not run the check (bad config, missing contracts, and similar)
+| Code | Meaning |
+| --- | --- |
+| `0` | No failing findings (per `failOn`) |
+| `1` | Failing findings |
+| `2` | SpecBridge could not run (bad config, and similar) |
+
+Findings / JSON report: [docs/findings.md](docs/findings.md).
 
 ## What this is not
 
@@ -82,7 +88,9 @@ pnpm specbridge check --format json --output .specbridge/report.json
 
 ## Status
 
-Docs and product shape only. Implementation comes next.
+[v0.1.0](https://github.com/OussamaHaddouche/specbridge/releases/tag/v0.1.0) includes `@specbridge/cli` 0.1.0 and `@specbridge/core` 0.2.0. SpecBridge loads contracts, resolves components, compares TypeScript props, and prints text or JSON.
+
+Markdown reports, CI examples, a public demo, and npm publish come later.
 
 See the phased plan in [docs/roadmap.md](docs/roadmap.md).
 
