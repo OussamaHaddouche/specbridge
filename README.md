@@ -90,9 +90,7 @@ Findings / JSON report: [docs/findings.md](docs/findings.md).
 
 [v0.1.0](https://github.com/OussamaHaddouche/specbridge/releases/tag/v0.1.0) includes `@specbridge/cli` 0.1.0 and `@specbridge/core` 0.2.0. SpecBridge loads contracts, resolves components, compares TypeScript props, and prints text or JSON.
 
-Markdown reports, CI examples, a public demo, and npm publish come later.
-
-See the phased plan in [docs/roadmap.md](docs/roadmap.md).
+Next up is an in-repo showcase: a small React example, docs walkthrough, and CI. See [docs/roadmap.md](docs/roadmap.md).
 
 ## License
 
