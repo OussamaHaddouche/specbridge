@@ -1,6 +1,6 @@
 # SpecBridge
 
-**v0.2.0** · runnable from this monorepo (not on npm yet)
+**v0.3.0** · runnable from this monorepo (not on npm yet)
 
 SpecBridge checks that design-system components still match what the team agreed on. It targets React + TypeScript component libraries first.
 
@@ -89,7 +89,7 @@ Findings / JSON report: [docs/findings.md](docs/findings.md).
 
 ## Status
 
-Latest GitHub release: [v0.2.0](https://github.com/OussamaHaddouche/specbridge/releases/tag/v0.2.0). Packages in-tree: `@specbridge/cli` 0.2.0, `@specbridge/core` 0.3.0. SpecBridge loads contracts, resolves components, compares TypeScript props and parameter defaults, and prints text, JSON, or Markdown.
+[v0.3.0](https://github.com/OussamaHaddouche/specbridge/releases/tag/v0.3.0) includes `@specbridge/cli` 0.2.0 and `@specbridge/core` 0.3.0. SpecBridge loads contracts, resolves components, compares TypeScript props and parameter defaults, and prints text, JSON, or Markdown.
 
 Next up is an in-repo showcase: a small React example, docs walkthrough, and CI. See [docs/roadmap.md](docs/roadmap.md).
 

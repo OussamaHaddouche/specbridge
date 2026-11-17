@@ -8,7 +8,7 @@ Personal project. Packages stay in this monorepo; no npm publish.
 
 **v0.2.0** — Markdown report (`--format markdown`).
 
-**@specbridge/core 0.3.0** (package bump; no product tag yet) — Parameter-default checks (SPB107).
+**v0.3.0** — Parameter-default checks (SPB107); `@specbridge/core` 0.3.0.
 
 ## Next: Showcase
 
