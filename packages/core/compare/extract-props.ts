@@ -6,15 +6,18 @@ export type CodeProp =
       kind: "primitive";
       type: "string" | "number" | "boolean";
       required: boolean;
+      default?: string | number | boolean;
     }
   | {
       kind: "values";
       values: string[];
       required: boolean;
+      default?: string | number | boolean;
     }
   | {
       kind: "unknown";
       required: boolean;
+      default?: string | number | boolean;
     };
 
 export type CodeProps = Record<string, CodeProp>;

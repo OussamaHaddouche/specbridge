@@ -9,6 +9,7 @@ export const ruleKeys = [
   "SPB104",
   "SPB105",
   "SPB106",
+  "SPB107",
   "SPB401",
 ] as const;
 
@@ -24,5 +25,6 @@ export const defaultRules: Record<RuleId, RuleSeverity> = {
   SPB104: "error",
   SPB105: "warning",
   SPB106: "warning",
+  SPB107: "error",
   SPB401: "error",
 };

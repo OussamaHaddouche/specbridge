@@ -139,4 +139,80 @@ describe("compareProps", () => {
         'Value "ghost" is allowed in code but not listed in the contract.',
     });
   });
+
+  it("reports SPB107 when the contract default is missing in code", () => {
+    const findings = compareProps(
+      {
+        variant: {
+          values: ["primary", "secondary"],
+          required: false,
+          default: "primary",
+        },
+      },
+      {
+        variant: {
+          kind: "values",
+          values: ["primary", "secondary"],
+          required: false,
+        },
+      },
+    );
+
+    expect(findings[0]).toMatchObject({
+      ruleId: "SPB107",
+      severity: "error",
+      prop: "variant",
+      expected: "primary",
+    });
+  });
+
+  it("reports SPB107 when the contract default differs from code", () => {
+    const findings = compareProps(
+      {
+        disabled: {
+          type: "boolean",
+          required: false,
+          default: false,
+        },
+      },
+      {
+        disabled: {
+          kind: "primitive",
+          type: "boolean",
+          required: false,
+          default: true,
+        },
+      },
+    );
+
+    expect(findings[0]).toMatchObject({
+      ruleId: "SPB107",
+      severity: "error",
+      prop: "disabled",
+      expected: false,
+      actual: true,
+    });
+  });
+
+  it("does not report SPB107 when defaults match", () => {
+    const findings = compareProps(
+      {
+        variant: {
+          values: ["primary", "secondary"],
+          required: false,
+          default: "primary",
+        },
+      },
+      {
+        variant: {
+          kind: "values",
+          values: ["primary", "secondary"],
+          required: false,
+          default: "primary",
+        },
+      },
+    );
+
+    expect(findings).toEqual([]);
+  });
 });

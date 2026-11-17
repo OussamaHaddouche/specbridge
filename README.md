@@ -89,7 +89,7 @@ Findings / JSON report: [docs/findings.md](docs/findings.md).
 
 ## Status
 
-[v0.2.0](https://github.com/OussamaHaddouche/specbridge/releases/tag/v0.2.0) includes `@specbridge/cli` 0.2.0 and `@specbridge/core` 0.2.0. SpecBridge loads contracts, resolves components, compares TypeScript props, and prints text, JSON, or Markdown.
+Latest GitHub release: [v0.2.0](https://github.com/OussamaHaddouche/specbridge/releases/tag/v0.2.0). Packages in-tree: `@specbridge/cli` 0.2.0, `@specbridge/core` 0.3.0. SpecBridge loads contracts, resolves components, compares TypeScript props and parameter defaults, and prints text, JSON, or Markdown.
 
 Next up is an in-repo showcase: a small React example, docs walkthrough, and CI. See [docs/roadmap.md](docs/roadmap.md).
 

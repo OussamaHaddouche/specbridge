@@ -13,7 +13,7 @@ describe("runCheck", () => {
 
     expect(failed).toBe(true);
     expect(report.schemaVersion).toBe(1);
-    expect(report.toolVersion).toBe("0.2.0");
+    expect(report.toolVersion).toBe("0.3.0");
     expect(report.summary).toEqual({
       checked: 2,
       errors: 1,

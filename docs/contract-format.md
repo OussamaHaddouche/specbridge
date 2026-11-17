@@ -88,7 +88,9 @@ Allowed `type` values in v1: `boolean`, `string`, `number`.
 | `values` | Allowed string choices |
 | `type` | `boolean`, `string`, or `number` |
 | `required` | Must callers pass this prop? |
-| `default` | Documented default |
+| `default` | Parameter default SpecBridge expects on the export |
+
+If you set `default`, SpecBridge compares it to a string, number, or boolean parameter default on `resolve.exportName` (SPB107). Omit `default` to skip that check. Only destructured parameter defaults count—not React `defaultProps` or non-literal expressions.
 
 Use either `values` or `type`, not both on the same prop.
 

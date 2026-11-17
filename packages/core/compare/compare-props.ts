@@ -51,6 +51,29 @@ function compareOneProp(
     );
   }
 
+  if (
+    contractProp.default !== undefined &&
+    codeProp.default !== contractProp.default
+  ) {
+    findings.push(
+      createFinding(
+        {
+          ruleId: "SPB107",
+          prop: propName,
+          message:
+            codeProp.default === undefined
+              ? `Default for prop "${propName}" is missing in code.`
+              : `Default mismatch for prop "${propName}".`,
+          expected: contractProp.default,
+          ...(codeProp.default !== undefined
+            ? { actual: codeProp.default }
+            : {}),
+        },
+        rules,
+      ),
+    );
+  }
+
   if (isValuesContractProp(contractProp)) {
     if (codeProp.kind !== "values") {
       findings.push(

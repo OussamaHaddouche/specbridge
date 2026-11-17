@@ -4,6 +4,10 @@ interface ButtonProps {
   disabled?: boolean;
 }
 
-export function Button(_props: ButtonProps) {
+export function Button({
+  label: _label,
+  variant = "primary",
+  disabled = false,
+}: ButtonProps) {
   return null;
 }

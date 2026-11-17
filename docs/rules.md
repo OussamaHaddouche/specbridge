@@ -12,6 +12,7 @@ Each mismatch SpecBridge finds has an ID, a short message, and a severity.
 | SPB104 | An allowed value from the contract is missing in code                                                      | Error   |
 | SPB105 | The code has a public prop the contract never mentioned                                                    | Warning |
 | SPB106 | The code allows a string value the contract never listed                                                   | Warning |
+| SPB107 | The contract `default` is missing in code, or differs from the parameter default                           | Error   |
 | SPB401 | A runtime check failed                                                                                     | Error   |
 
 ## How severity affects CI
@@ -34,3 +35,7 @@ SpecBridge reports SPB104.
 The contract lists those same three values.  
 The code also allows `ghost`.  
 SpecBridge reports SPB106.
+
+The contract says `variant` defaults to `primary`.  
+The export destructures `{ variant = "secondary" }` (or has no parameter default).  
+SpecBridge reports SPB107.

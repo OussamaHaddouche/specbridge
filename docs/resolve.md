@@ -41,7 +41,8 @@ There are no fallbacks. SpecBridge does not guess `ButtonProps` or infer props f
 3. Open `resolve.source`.
 4. Find the export named `resolve.exportName`.
 5. Read the type named `resolve.propsType`.
-6. Compare that type’s props to the contract.
+
+After resolve succeeds, SpecBridge compares that props type—and the export’s parameter defaults when the contract sets `default`—to the contract. Details below.
 
 ## When resolve fails
 
@@ -58,12 +59,11 @@ There are no fallbacks. SpecBridge does not guess `ButtonProps` or infer props f
 - which props are required
 - booleans, strings, and numbers
 - lists of allowed string values
+- contract `default` vs parameter defaults on the named export (string / number / boolean literals)
 
 ## What v1 does not fully support yet
 
 - very complex TypeScript types
 - catch-all / index-signature props
 - nested object or function props as first-class contract fields
-- proving that runtime default values in code match the contract’s `default`
-
-The `default` field in a contract documents the agreement. v1 does not verify it against runtime code yet.
+- React `defaultProps`, JSDoc `@default`, or non-literal default expressions
