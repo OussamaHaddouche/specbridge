@@ -1,14 +1,14 @@
 # SpecBridge
 
-**v0.3.0** · runnable from this monorepo (not on npm yet)
+**v0.3.0** · runs from this monorepo (not on npm)
 
-SpecBridge checks that design-system components still match what the team agreed on. It targets React + TypeScript component libraries first.
+SpecBridge checks that your React + TypeScript design-system components still match the props your team wrote down in contracts.
 
-Example: the team agreed `Button` has variants `primary`, `secondary`, and `danger`. Someone removes `danger` from the TypeScript props. SpecBridge fails the check and points at the mismatch, in local development or CI, before that drift ships.
+If the team agreed `Button` has variants `primary`, `secondary`, and `danger`, and someone drops `danger` from the TypeScript props, `specbridge check` fails and names the mismatch before that change ships.
 
 ## What you do
 
-1. Write one contract file per component, named after it (`Button.contract.json`), with a `resolve` block that points at the file, export, and props type.
+1. Add one contract file per component (`Button.contract.json`) with a `resolve` block (file, export, props type).
 2. Add `specbridge.config.json` at the project root and point it at your contracts.
 3. Run `specbridge check`.
 
@@ -51,17 +51,14 @@ More detail: [docs/contract-format.md](docs/contract-format.md).
 
 ## What SpecBridge reports
 
-When code no longer matches the contract, you get a finding such as:
+Findings include cases such as:
 
-- the component could not be resolved from `resolve`
-- a prop from the contract is missing in code
-- an allowed value like `danger` disappeared
-- a public prop exists in code but not in the contract (warning by default)
+- SpecBridge could not resolve the component from `resolve`
+- A prop in the contract is missing in code
+- An allowed value such as `danger` disappeared
+- Code exposes a public prop the contract never listed (warning by default)
 
-Rule list: [docs/rules.md](docs/rules.md).  
-Findings / JSON report: [docs/findings.md](docs/findings.md).  
-Project config: [docs/config.md](docs/config.md).  
-How resolve works: [docs/resolve.md](docs/resolve.md).
+See [docs/rules.md](docs/rules.md), [docs/findings.md](docs/findings.md), [docs/config.md](docs/config.md), and [docs/resolve.md](docs/resolve.md).
 
 ## Commands
 
@@ -79,19 +76,15 @@ pnpm specbridge check --format markdown --output .specbridge/report.md
 | `1` | Failing findings |
 | `2` | SpecBridge could not run (bad config, and similar) |
 
-Findings / JSON report: [docs/findings.md](docs/findings.md).
+## Scope
 
-## What this is not
-
-- Not a Figma pixel comparison tool
-- Not a replacement for TypeScript, ESLint, or visual regression
-- Not trying to support every UI framework on day one
+SpecBridge does not compare Figma pixels, replace TypeScript or ESLint, or run visual regression. v1 targets React + TypeScript component libraries.
 
 ## Status
 
-[v0.3.0](https://github.com/OussamaHaddouche/specbridge/releases/tag/v0.3.0) includes `@specbridge/cli` 0.2.0 and `@specbridge/core` 0.3.0. SpecBridge loads contracts, resolves components, compares TypeScript props and parameter defaults, and prints text, JSON, or Markdown.
+[v0.3.0](https://github.com/OussamaHaddouche/specbridge/releases/tag/v0.3.0) ships `@specbridge/cli` 0.2.0 and `@specbridge/core` 0.3.0. It loads contracts, resolves components, compares TypeScript props and parameter defaults, and prints text, JSON, or Markdown.
 
-Next up is an in-repo showcase: a small React example, docs walkthrough, and CI. See [docs/roadmap.md](docs/roadmap.md).
+Next work is listed in [docs/roadmap.md](docs/roadmap.md): package gaps first, then an in-repo showcase.
 
 ## License
 

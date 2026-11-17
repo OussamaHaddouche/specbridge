@@ -1,12 +1,12 @@
 # Findings and reports
 
-When you run `specbridge check`, SpecBridge produces findings (individual mismatches) grouped by component in a JSON report.
+`specbridge check` produces findings (one mismatch each), grouped by component in a report.
 
 Rule meanings and default severities: [rules.md](./rules.md).
 
 ## Finding
 
-One finding is one mismatch. Inside a report it lives under its component, so it does not repeat the component name or source path.
+One finding is one mismatch. Under a component in the report it does not repeat the component name or source path.
 
 ```json
 {
@@ -32,7 +32,7 @@ One finding is one mismatch. Inside a report it lives under its component, so it
 
 For resolve failures (SPB001 / SPB002), omit `prop` when it does not apply.
 
-v1 does not require line/column locations.
+v1 does not require line or column locations.
 
 ## Report
 
@@ -83,14 +83,14 @@ JSON output (`--format json`) groups findings by component:
 | `components[].source` | Path from `resolve.source` |
 | `components[].findings` | Findings for that component (may be empty) |
 
-A clean run uses the same shape: every checked component is listed, each with `"findings": []`, and error/warning counts are zero.
+A clean run uses the same shape: every checked component is listed with `"findings": []`, and error and warning counts are zero.
 
 ## Exit codes and output
 
-| Code | Meaning | JSON report |
+| Code | Meaning | Report file |
 | --- | --- | --- |
-| `0` | No failing findings (per `failOn`) | Written when requested |
-| `1` | Failing findings | Written when requested |
+| `0` | No failing findings (per `failOn`) | Written when you pass `--output` |
+| `1` | Failing findings | Written when you pass `--output` |
 | `2` | SpecBridge could not run (bad config, and similar) | Not written; explain on stderr |
 
-Terminal and Markdown output (`--format markdown`) also group by component and map from this shape.
+Terminal text and Markdown (`--format markdown`) also group by component and map from this shape.

@@ -1,12 +1,10 @@
 # How SpecBridge resolves a component
 
-SpecBridge does not search the repo for components. Every contract must say exactly which file, export, and props type to check.
-
-That keeps checks predictable: no guessed matches, no almost-right file.
+SpecBridge does not search the repo for components. Each contract names the file, export, and props type to check.
 
 ## Required resolve block
 
-Each contract includes a `resolve` section:
+Every contract includes a `resolve` section:
 
 ```json
 {
@@ -34,7 +32,7 @@ Each contract includes a `resolve` section:
 
 There are no fallbacks. SpecBridge does not guess `ButtonProps` or infer props from `forwardRef`.
 
-## Step by step
+## Resolve steps
 
 1. Take the component name from the contract file: `Button.contract.json` → Button (used in findings and reports).
 2. Read `resolve` from the contract.
@@ -42,7 +40,7 @@ There are no fallbacks. SpecBridge does not guess `ButtonProps` or infer props f
 4. Find the export named `resolve.exportName`.
 5. Read the type named `resolve.propsType`.
 
-After resolve succeeds, SpecBridge compares that props type—and the export’s parameter defaults when the contract sets `default`—to the contract. Details below.
+After resolve succeeds, SpecBridge compares that props type to the contract. When the contract sets `default`, it also compares parameter defaults on the export. See [What SpecBridge compares in v1](#what-specbridge-compares-in-v1).
 
 ## When resolve fails
 
@@ -53,17 +51,17 @@ After resolve succeeds, SpecBridge compares that props type—and the export’s
 | `exportName` not found in that file | Error SPB001 |
 | `propsType` not found or could not be read | Error SPB002 |
 
-## What v1 can compare
+## What SpecBridge compares in v1
 
-- which props exist
-- which props are required
-- booleans, strings, and numbers
-- lists of allowed string values
-- contract `default` vs parameter defaults on the named export (string / number / boolean literals)
+- Which props exist
+- Which props are required
+- Booleans, strings, and numbers
+- Lists of allowed string values
+- Contract `default` vs parameter defaults on the named export (string / number / boolean literals)
 
-## What v1 does not fully support yet
+## Limits in v1
 
-- very complex TypeScript types
-- catch-all / index-signature props
-- nested object or function props as first-class contract fields
+- Very complex TypeScript types
+- Catch-all / index-signature props
+- Nested object or function props as first-class contract fields
 - React `defaultProps`, JSDoc `@default`, or non-literal default expressions

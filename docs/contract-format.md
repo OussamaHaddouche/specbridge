@@ -1,15 +1,15 @@
 # Contract format
 
-A contract is a JSON file that answers: what did we agree this component supports?
+A contract is a JSON file that records which public props a component is supposed to support.
 
-One contract per component. Name the file after the component:
+Use one file per component. Name it after the component:
 
 - `Button.contract.json` → Button
 - `TextField.contract.json` → TextField
 
-Put them in a folder such as `contracts/`. Project config tells SpecBridge where that folder is. See [config.md](./config.md).
+Put contracts in a folder such as `contracts/`. Project config points SpecBridge at that folder. See [config.md](./config.md).
 
-Every contract must include a `resolve` block so SpecBridge knows which file, export, and props type to check. There is no automatic component search.
+Every contract needs a `resolve` block: file, export, and props type. SpecBridge does not search for components on its own.
 
 ## Full example
 
@@ -61,7 +61,7 @@ All three fields are required. Details: [resolve.md](./resolve.md).
 
 Each entry under `props` is one public prop.
 
-**Enumerated strings**: list the allowed values:
+For enumerated strings, list the allowed values:
 
 ```json
 "variant": {
@@ -71,7 +71,7 @@ Each entry under `props` is one public prop.
 }
 ```
 
-**Simple types**: use `type`:
+For a primitive, use `type`:
 
 ```json
 "disabled": {
@@ -87,16 +87,16 @@ Allowed `type` values in v1: `boolean`, `string`, `number`.
 | --- | --- |
 | `values` | Allowed string choices |
 | `type` | `boolean`, `string`, or `number` |
-| `required` | Must callers pass this prop? |
+| `required` | Whether callers must pass this prop |
 | `default` | Parameter default SpecBridge expects on the export |
 
-If you set `default`, SpecBridge compares it to a string, number, or boolean parameter default on `resolve.exportName` (SPB107). Omit `default` to skip that check. Only destructured parameter defaults count—not React `defaultProps` or non-literal expressions.
+If you set `default`, SpecBridge compares it to a string, number, or boolean parameter default on `resolve.exportName` (SPB107). Omit `default` to skip that check. Only destructured parameter defaults count. React `defaultProps` and non-literal expressions do not.
 
 Use either `values` or `type`, not both on the same prop.
 
-## Where project settings live
+## Project settings
 
-Where contracts live, TypeScript settings, and rule severity live in `specbridge.config.json` at the project root.
+Contracts location, TypeScript settings, and rule severity live in `specbridge.config.json` at the project root.
 
-Full shape, required fields, and defaults: [config.md](./config.md).  
+Full shape: [config.md](./config.md).  
 How resolve works: [resolve.md](./resolve.md).
