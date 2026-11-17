@@ -93,4 +93,4 @@ A clean run uses the same shape: every checked component is listed, each with `"
 | `1` | Failing findings | Written when requested |
 | `2` | SpecBridge could not run (bad config, and similar) | Not written; explain on stderr |
 
-Terminal output should also group by component. Markdown and SARIF come later; they should map from this shape.
+Terminal and Markdown output (`--format markdown`) also group by component and map from this shape.

@@ -1,5 +1,5 @@
 export type CheckArgs = {
-  format: "text" | "json";
+  format: "text" | "json" | "markdown";
   output: string | undefined;
 };
 
@@ -27,10 +27,10 @@ export function parseArgs(argv: string[]): ParseArgsResult {
     switch (arg) {
       case "--format": {
         const value = rest[i + 1];
-        if (value !== "text" && value !== "json") {
+        if (value !== "text" && value !== "json" && value !== "markdown") {
           return {
             ok: false,
-            message: "Invalid --format. Use text or json.",
+            message: "Invalid --format. Use text, json, or markdown.",
           };
         }
         format = value;

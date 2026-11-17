@@ -1,12 +1,15 @@
+import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 import { runCli } from "./run-cli";
 
-const coreFixtures = path.resolve(
+const packageRoot = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
-  "../../core/check/__fixtures__",
+  "..",
 );
+const testOutputDir = path.join(packageRoot, "test-output");
+const coreFixtures = path.resolve(packageRoot, "../core/check/__fixtures__");
 const projectDir = path.join(coreFixtures, "project");
 
 function createIo(cwd: string) {
@@ -29,6 +32,8 @@ function createIo(cwd: string) {
         },
       },
       writeFile(filePath: string, contents: string) {
+        fs.mkdirSync(path.dirname(filePath), { recursive: true });
+        fs.writeFileSync(filePath, contents, "utf8");
         files.set(filePath, contents);
       },
     },
@@ -56,17 +61,7 @@ describe("runCli", () => {
   });
 
   it("prints JSON when --format json is set", () => {
-    const session = createIo(projectDir);
-    const code = runCli(["check", "--format", "json"], session.io);
-
-    expect(code).toBe(1);
-    const report = JSON.parse(session.buffers.stdout);
-    expect(report.summary.errors).toBe(1);
-    expect(report.components[0].name).toBe("Button");
-  });
-
-  it("writes the report when --output is set", () => {
-    const outPath = "report.json";
+    const outPath = path.join(testOutputDir, "report.json");
     const session = createIo(projectDir);
     const code = runCli(
       ["check", "--format", "json", "--output", outPath],
@@ -74,7 +69,34 @@ describe("runCli", () => {
     );
 
     expect(code).toBe(1);
-    expect(session.files.get(outPath)).toBe(session.buffers.stdout);
+    const report = JSON.parse(session.buffers.stdout);
+    expect(report.summary.errors).toBe(1);
+    expect(report.components[0].name).toBe("Button");
+    expect(fs.readFileSync(outPath, "utf8")).toBe(session.buffers.stdout);
+  });
+
+  it("prints Markdown when --format markdown is set", () => {
+    const outPath = path.join(testOutputDir, "report.md");
+    const session = createIo(projectDir);
+    const code = runCli(
+      ["check", "--format", "markdown", "--output", outPath],
+      session.io,
+    );
+
+    expect(code).toBe(1);
+    expect(session.buffers.stdout).toContain("## Button");
+    expect(session.buffers.stdout).toContain("SPB104");
+    expect(session.buffers.stdout).toMatch(/Checked \d+/);
+    expect(session.buffers.stderr).toBe("");
+    expect(fs.readFileSync(outPath, "utf8")).toBe(session.buffers.stdout);
+  });
+
+  it("exits 2 for an unknown --format", () => {
+    const session = createIo(projectDir);
+    const code = runCli(["check", "--format", "sarif"], session.io);
+
+    expect(code).toBe(2);
+    expect(session.buffers.stderr).toContain("Invalid --format");
   });
 
   it("exits 2 for an unknown command", () => {
