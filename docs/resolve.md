@@ -1,6 +1,6 @@
-# How SpecBridge resolves a component
+# How DsLint resolves a component
 
-SpecBridge does not search the repo for components. Each contract names the file, export, and props type to check.
+DsLint does not search the repo for components. Each contract names the file, export, and props type to check.
 
 ## Required resolve block
 
@@ -27,10 +27,10 @@ Every contract includes a `resolve` section:
 | Field | Required | Meaning |
 | --- | --- | --- |
 | `source` | Yes | Path to the component file, from the project root |
-| `exportName` | Yes | Export SpecBridge should use in that file |
-| `propsType` | Yes | TypeScript props type SpecBridge should read |
+| `exportName` | Yes | Export DsLint should use in that file |
+| `propsType` | Yes | TypeScript props type DsLint should read |
 
-There are no fallbacks. SpecBridge does not guess `ButtonProps` or infer props from `forwardRef`.
+There are no fallbacks. DsLint does not guess `ButtonProps` or infer props from `forwardRef`.
 
 ## Resolve steps
 
@@ -40,18 +40,18 @@ There are no fallbacks. SpecBridge does not guess `ButtonProps` or infer props f
 4. Find the export named `resolve.exportName`.
 5. Read the type named `resolve.propsType`.
 
-After resolve succeeds, SpecBridge compares that props type to the contract. When the contract sets `default`, it also compares parameter defaults on the export. See [What SpecBridge compares in v1](#what-specbridge-compares-in-v1).
+After resolve succeeds, DsLint compares that props type to the contract. When the contract sets `default`, it also compares parameter defaults on the export. See [What DsLint compares in v1](#what-dslint-compares-in-v1).
 
 ## When resolve fails
 
 | What happened | Result |
 | --- | --- |
-| `resolve` missing or incomplete | Error SPB001 |
-| `source` file not found | Error SPB001 |
-| `exportName` not found in that file | Error SPB001 |
-| `propsType` not found or could not be read | Error SPB002 |
+| `resolve` missing or incomplete | Error DSL001 |
+| `source` file not found | Error DSL001 |
+| `exportName` not found in that file | Error DSL001 |
+| `propsType` not found or could not be read | Error DSL002 |
 
-## What SpecBridge compares in v1
+## What DsLint compares in v1
 
 - Which props exist
 - Which props are required

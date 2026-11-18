@@ -1,6 +1,6 @@
 # Findings and reports
 
-`specbridge check` produces findings (one mismatch each), grouped by component in a report.
+`dslint check` produces findings (one mismatch each), grouped by component in a report.
 
 Rule meanings and default severities: [rules.md](./rules.md).
 
@@ -10,7 +10,7 @@ One finding is one mismatch. Under a component in the report it does not repeat 
 
 ```json
 {
-  "ruleId": "SPB104",
+  "ruleId": "DSL104",
   "severity": "error",
   "prop": "variant",
   "message": "Allowed value \"danger\" is missing in code.",
@@ -21,7 +21,7 @@ One finding is one mismatch. Under a component in the report it does not repeat 
 
 | Field | Required | Meaning |
 | --- | --- | --- |
-| `ruleId` | Yes | Rule ID, such as `SPB104` |
+| `ruleId` | Yes | Rule ID, such as `DSL104` |
 | `severity` | Yes | `error` or `warning` (after config overrides) |
 | `message` | Yes | Human-readable summary |
 | `prop` | No | Prop name when the mismatch is about a prop |
@@ -30,7 +30,7 @@ One finding is one mismatch. Under a component in the report it does not repeat 
 
 `expected` and `actual` are JSON values (string, number, boolean, array, and similar), not forced to strings.
 
-For resolve failures (SPB001 / SPB002), omit `prop` when it does not apply.
+For resolve failures (DSL001 / DSL002), omit `prop` when it does not apply.
 
 v1 does not require line or column locations.
 
@@ -53,7 +53,7 @@ JSON output (`--format json`) groups findings by component:
       "source": "src/components/Button/Button.tsx",
       "findings": [
         {
-          "ruleId": "SPB104",
+          "ruleId": "DSL104",
           "severity": "error",
           "prop": "variant",
           "message": "Allowed value \"danger\" is missing in code.",
@@ -74,7 +74,7 @@ JSON output (`--format json`) groups findings by component:
 | Field | Meaning |
 | --- | --- |
 | `schemaVersion` | Report shape version |
-| `toolVersion` | SpecBridge version that produced the report |
+| `toolVersion` | DsLint version that produced the report |
 | `summary.checked` | Contracts checked in this run |
 | `summary.errors` | Finding count with severity `error` |
 | `summary.warnings` | Finding count with severity `warning` |
@@ -91,6 +91,6 @@ A clean run uses the same shape: every checked component is listed with `"findin
 | --- | --- | --- |
 | `0` | No failing findings (per `failOn`) | Written when you pass `--output` |
 | `1` | Failing findings | Written when you pass `--output` |
-| `2` | SpecBridge could not run (bad config, and similar) | Not written; explain on stderr |
+| `2` | DsLint could not run (bad config, and similar) | Not written; explain on stderr |
 
 Terminal text and Markdown (`--format markdown`) also group by component and map from this shape.

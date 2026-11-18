@@ -64,9 +64,9 @@ describe("extractProps + compareProps", () => {
     );
 
     expect(findings.map((finding) => finding.ruleId).sort()).toEqual([
-      "SPB105",
-      "SPB105",
-      "SPB106",
+      "DSL105",
+      "DSL105",
+      "DSL106",
     ]);
   });
 });

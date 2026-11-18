@@ -1,6 +1,6 @@
 # Project config
 
-SpecBridge reads `specbridge.config.json` from the project root.
+DsLint reads `dslint.config.json` from the project root.
 
 The file sets where contracts live, which TypeScript config to use, and how strict the run is.
 
@@ -8,7 +8,7 @@ Component files are not listed here. Each contract points at its file with `reso
 
 ## Example
 
-`specbridge.config.json`:
+`dslint.config.json`:
 
 ```json
 {
@@ -17,8 +17,8 @@ Component files are not listed here. Each contract points at its file with `reso
     "tsconfig": "tsconfig.json"
   },
   "rules": {
-    "SPB105": "warning",
-    "SPB106": "warning"
+    "DSL105": "warning",
+    "DSL106": "warning"
   },
   "failOn": "error"
 }
@@ -33,12 +33,12 @@ Component files are not listed here. Each contract points at its file with `reso
 | `rules` | No | see [rules.md](./rules.md) | Override severity per rule ID (`error` or `warning`) |
 | `failOn` | No | `error` | Severities at this level or above fail the run |
 
-`contracts` has no default. If it is missing, SpecBridge exits with code `2`.
+`contracts` has no default. If it is missing, DsLint exits with code `2`.
 
 ## Paths and defaults
 
-- Paths and globs resolve from the project root (the directory that contains `specbridge.config.json`)
-- If you omit `typescript`, SpecBridge uses `tsconfig.json`
+- Paths and globs resolve from the project root (the directory that contains `dslint.config.json`)
+- If you omit `typescript`, DsLint uses `tsconfig.json`
 - If you omit `failOn`, warnings are reported but do not fail the run
 
 Contract files: [contract-format.md](./contract-format.md).  

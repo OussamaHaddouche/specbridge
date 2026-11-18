@@ -1,10 +1,10 @@
 {
-  "name": "specbridge",
+  "name": "dslint",
   "version": "0.0.0",
   "description": "",
   "scripts": {
     "test": "pnpm -r test",
-    "specbridge": "node packages/cli/bin/specbridge.mjs"
+    "dslint": "node packages/cli/bin/dslint.mjs"
   },
 
   "keywords": [],

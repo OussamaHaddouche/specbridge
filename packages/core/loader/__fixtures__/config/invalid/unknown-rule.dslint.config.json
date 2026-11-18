@@ -1,6 +1,6 @@
 {
   "contracts": "contracts/**/*.contract.json",
   "rules": {
-    "SPB999": "error"
+    "DSL999": "error"
   }
 }

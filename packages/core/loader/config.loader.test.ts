@@ -11,14 +11,14 @@ const invalidConfigDir = path.join(fixturesDir, "invalid");
 describe("loadConfig", () => {
   it("parses a valid config file and fills defaults", () => {
     const config = loadConfig(
-      path.join(validConfigDir, "specbridge.config.json"),
+      path.join(validConfigDir, "dslint.config.json"),
     );
 
     expect(config.contracts).toBe("contracts/**/*.contract.json");
     expect(config.typescript).toEqual({ tsconfig: "tsconfig.json" });
     expect(config.failOn).toBe("error");
-    expect(config.rules.SPB105).toBe("error");
-    expect(config.rules.SPB001).toBe("error");
+    expect(config.rules.DSL105).toBe("error");
+    expect(config.rules.DSL001).toBe("error");
   });
 
   it("throws CONFIG_INVALID when required contracts is missing", () => {
@@ -26,7 +26,7 @@ describe("loadConfig", () => {
       loadConfig(
         path.join(
           invalidConfigDir,
-          "missing-required-property.specbridge.config.json",
+          "missing-required-property.dslint.config.json",
         ),
       );
       expect.unreachable();
@@ -39,7 +39,7 @@ describe("loadConfig", () => {
   it("throws CONFIG_INVALID when a rule id does not exist", () => {
     try {
       loadConfig(
-        path.join(invalidConfigDir, "unknown-rule.specbridge.config.json"),
+        path.join(invalidConfigDir, "unknown-rule.dslint.config.json"),
       );
       expect.unreachable();
     } catch (error) {
@@ -51,7 +51,7 @@ describe("loadConfig", () => {
   it("throws CONFIG_INVALID when failOn has an invalid value", () => {
     try {
       loadConfig(
-        path.join(invalidConfigDir, "invalid-failOn.specbridge.config.json"),
+        path.join(invalidConfigDir, "invalid-failOn.dslint.config.json"),
       );
       expect.unreachable();
     } catch (error) {
@@ -65,7 +65,7 @@ describe("loadConfig", () => {
       loadConfig(
         path.join(
           invalidConfigDir,
-          "unknown-property.specbridge.config.json",
+          "unknown-property.dslint.config.json",
         ),
       );
       expect.unreachable();

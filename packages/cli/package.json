@@ -1,9 +1,9 @@
 {
-  "name": "@specbridge/cli",
+  "name": "@dslint/cli",
   "version": "0.2.0",
   "type": "module",
   "bin": {
-    "specbridge": "./bin/specbridge.mjs"
+    "dslint": "./bin/dslint.mjs"
   },
   "scripts": {
     "test": "vitest run",
@@ -11,7 +11,7 @@
   },
   "license": "ISC",
   "dependencies": {
-    "@specbridge/core": "workspace:*",
+    "@dslint/core": "workspace:*",
     "tsx": "^4.21.0"
   },
   "devDependencies": {

@@ -5,12 +5,12 @@ describe("createFinding", () => {
   it("formats a finding and fills severity from defaultRules", () => {
     expect(
       createFinding({
-        ruleId: "SPB001",
+        ruleId: "DSL001",
         message: "Source file not found: Button.tsx",
         expected: "Button.tsx",
       }),
     ).toEqual({
-      ruleId: "SPB001",
+      ruleId: "DSL001",
       severity: "error",
       message: "Source file not found: Button.tsx",
       expected: "Button.tsx",
@@ -20,12 +20,12 @@ describe("createFinding", () => {
   it("includes optional prop when provided", () => {
     expect(
       createFinding({
-        ruleId: "SPB105",
+        ruleId: "DSL105",
         message: "Public prop is not in the contract.",
         prop: "className",
       }),
     ).toEqual({
-      ruleId: "SPB105",
+      ruleId: "DSL105",
       severity: "warning",
       message: "Public prop is not in the contract.",
       prop: "className",

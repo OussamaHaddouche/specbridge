@@ -27,7 +27,7 @@ describe("compareProps", () => {
     ).toEqual([]);
   });
 
-  it("reports SPB101 when a contract prop is missing in code", () => {
+  it("reports DSL101 when a contract prop is missing in code", () => {
     const findings = compareProps(
       { label: { type: "string", required: true } },
       {},
@@ -35,7 +35,7 @@ describe("compareProps", () => {
 
     expect(findings).toEqual([
       {
-        ruleId: "SPB101",
+        ruleId: "DSL101",
         severity: "error",
         prop: "label",
         message: 'Prop "label" is listed in the contract but missing in code.',
@@ -44,35 +44,35 @@ describe("compareProps", () => {
     ]);
   });
 
-  it("reports SPB102 when types differ", () => {
+  it("reports DSL102 when types differ", () => {
     const findings = compareProps(
       { count: { type: "number", required: true } },
       { count: { kind: "primitive", type: "string", required: true } },
     );
 
     expect(findings[0]).toMatchObject({
-      ruleId: "SPB102",
+      ruleId: "DSL102",
       prop: "count",
       expected: { type: "number" },
       actual: { type: "string" },
     });
   });
 
-  it("reports SPB103 when required does not match", () => {
+  it("reports DSL103 when required does not match", () => {
     const findings = compareProps(
       { disabled: { type: "boolean", required: false } },
       { disabled: { kind: "primitive", type: "boolean", required: true } },
     );
 
     expect(findings[0]).toMatchObject({
-      ruleId: "SPB103",
+      ruleId: "DSL103",
       prop: "disabled",
       expected: false,
       actual: true,
     });
   });
 
-  it("reports SPB104 when a contract value is missing in code", () => {
+  it("reports DSL104 when a contract value is missing in code", () => {
     const findings = compareProps(
       {
         variant: {
@@ -91,7 +91,7 @@ describe("compareProps", () => {
 
     expect(findings).toEqual([
       {
-        ruleId: "SPB104",
+        ruleId: "DSL104",
         severity: "error",
         prop: "variant",
         message: 'Allowed value "danger" is missing in code.',
@@ -101,20 +101,20 @@ describe("compareProps", () => {
     ]);
   });
 
-  it("reports SPB105 when code has an extra prop", () => {
+  it("reports DSL105 when code has an extra prop", () => {
     const findings = compareProps(
       {},
       { className: { kind: "primitive", type: "string", required: false } },
     );
 
     expect(findings[0]).toMatchObject({
-      ruleId: "SPB105",
+      ruleId: "DSL105",
       severity: "warning",
       prop: "className",
     });
   });
 
-  it("reports SPB106 when code allows an extra value", () => {
+  it("reports DSL106 when code allows an extra value", () => {
     const findings = compareProps(
       {
         variant: {
@@ -132,7 +132,7 @@ describe("compareProps", () => {
     );
 
     expect(findings[0]).toMatchObject({
-      ruleId: "SPB106",
+      ruleId: "DSL106",
       severity: "warning",
       prop: "variant",
       message:
@@ -140,7 +140,7 @@ describe("compareProps", () => {
     });
   });
 
-  it("reports SPB107 when the contract default is missing in code", () => {
+  it("reports DSL107 when the contract default is missing in code", () => {
     const findings = compareProps(
       {
         variant: {
@@ -159,14 +159,14 @@ describe("compareProps", () => {
     );
 
     expect(findings[0]).toMatchObject({
-      ruleId: "SPB107",
+      ruleId: "DSL107",
       severity: "error",
       prop: "variant",
       expected: "primary",
     });
   });
 
-  it("reports SPB107 when the contract default differs from code", () => {
+  it("reports DSL107 when the contract default differs from code", () => {
     const findings = compareProps(
       {
         disabled: {
@@ -186,7 +186,7 @@ describe("compareProps", () => {
     );
 
     expect(findings[0]).toMatchObject({
-      ruleId: "SPB107",
+      ruleId: "DSL107",
       severity: "error",
       prop: "disabled",
       expected: false,
@@ -194,7 +194,7 @@ describe("compareProps", () => {
     });
   });
 
-  it("does not report SPB107 when defaults match", () => {
+  it("does not report DSL107 when defaults match", () => {
     const findings = compareProps(
       {
         variant: {

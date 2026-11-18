@@ -39,7 +39,7 @@ describe("resolveComponent", () => {
     });
   });
 
-  it("returns SPB001 when the source file is missing", () => {
+  it("returns DSL001 when the source file is missing", () => {
     const result = resolveComponent(
       { ...buttonResolve, source: "Missing.component.tsx" },
       { rootPath: fixturesDir, ...project },
@@ -48,7 +48,7 @@ describe("resolveComponent", () => {
     expect(result).toEqual({
       ok: false,
       finding: {
-        ruleId: "SPB001",
+        ruleId: "DSL001",
         severity: "error",
         message: "Source file not found: Missing.component.tsx",
         expected: "Missing.component.tsx",
@@ -56,7 +56,7 @@ describe("resolveComponent", () => {
     });
   });
 
-  it("returns SPB001 when the export is missing", () => {
+  it("returns DSL001 when the export is missing", () => {
     const result = resolveComponent(
       { ...buttonResolve, exportName: "MissingButton" },
       { rootPath: fixturesDir, ...project },
@@ -65,7 +65,7 @@ describe("resolveComponent", () => {
     expect(result).toEqual({
       ok: false,
       finding: {
-        ruleId: "SPB001",
+        ruleId: "DSL001",
         severity: "error",
         message: "Export not found: MissingButton",
         expected: "MissingButton",
@@ -73,7 +73,7 @@ describe("resolveComponent", () => {
     });
   });
 
-  it("returns SPB002 when the props type is missing", () => {
+  it("returns DSL002 when the props type is missing", () => {
     const result = resolveComponent(
       { ...buttonResolve, propsType: "MissingProps" },
       { rootPath: fixturesDir, ...project },
@@ -82,7 +82,7 @@ describe("resolveComponent", () => {
     expect(result).toEqual({
       ok: false,
       finding: {
-        ruleId: "SPB002",
+        ruleId: "DSL002",
         severity: "error",
         message: "Props type not found: MissingProps",
         expected: "MissingProps",

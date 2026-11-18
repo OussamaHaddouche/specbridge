@@ -1,18 +1,18 @@
-# SpecBridge
+# DsLint
 
 **v0.3.0** · runs from this monorepo (not on npm)
 
-SpecBridge checks that your React + TypeScript design-system components still match the props your team wrote down in contracts.
+DsLint checks that your React + TypeScript design-system components still match the props your team wrote down in contracts.
 
-If the team agreed `Button` has variants `primary`, `secondary`, and `danger`, and someone drops `danger` from the TypeScript props, `specbridge check` fails and names the mismatch before that change ships.
+If the team agreed `Button` has variants `primary`, `secondary`, and `danger`, and someone drops `danger` from the TypeScript props, `dslint check` fails and names the mismatch before that change ships.
 
 ## What you do
 
 1. Add one contract file per component (`Button.contract.json`) with a `resolve` block (file, export, props type).
-2. Add `specbridge.config.json` at the project root and point it at your contracts.
-3. Run `specbridge check`.
+2. Add `dslint.config.json` at the project root and point it at your contracts.
+3. Run `dslint check`.
 
-SpecBridge reads the props type you named and compares it to the contract.
+DsLint reads the props type you named and compares it to the contract.
 
 ## What a contract looks like
 
@@ -49,11 +49,11 @@ That file means:
 
 More detail: [docs/contract-format.md](docs/contract-format.md).
 
-## What SpecBridge reports
+## What DsLint reports
 
 Findings include cases such as:
 
-- SpecBridge could not resolve the component from `resolve`
+- DsLint could not resolve the component from `resolve`
 - A prop in the contract is missing in code
 - An allowed value such as `danger` disappeared
 - Code exposes a public prop the contract never listed (warning by default)
@@ -65,24 +65,24 @@ See [docs/rules.md](docs/rules.md), [docs/findings.md](docs/findings.md), [docs/
 After `pnpm install` at the repo root:
 
 ```bash
-pnpm specbridge check
-pnpm specbridge check --format json --output .specbridge/report.json
-pnpm specbridge check --format markdown --output .specbridge/report.md
+pnpm dslint check
+pnpm dslint check --format json --output .dslint/report.json
+pnpm dslint check --format markdown --output .dslint/report.md
 ```
 
 | Code | Meaning |
 | --- | --- |
 | `0` | No failing findings (per `failOn`) |
 | `1` | Failing findings |
-| `2` | SpecBridge could not run (bad config, and similar) |
+| `2` | DsLint could not run (bad config, and similar) |
 
 ## Scope
 
-SpecBridge does not compare Figma pixels, replace TypeScript or ESLint, or run visual regression. v1 targets React + TypeScript component libraries.
+DsLint does not compare Figma pixels, replace TypeScript or ESLint, or run visual regression. v1 targets React + TypeScript component libraries.
 
 ## Status
 
-[v0.3.0](https://github.com/OussamaHaddouche/specbridge/releases/tag/v0.3.0) ships `@specbridge/cli` 0.2.0 and `@specbridge/core` 0.3.0. It loads contracts, resolves components, compares TypeScript props and parameter defaults, and prints text, JSON, or Markdown.
+[v0.3.0](https://github.com/OussamaHaddouche/dslint/releases/tag/v0.3.0) ships `@dslint/cli` 0.2.0 and `@dslint/core` 0.3.0. It loads contracts, resolves components, compares TypeScript props and parameter defaults, and prints text, JSON, or Markdown.
 
 Next work is listed in [docs/roadmap.md](docs/roadmap.md): package gaps first, then an in-repo showcase.
 

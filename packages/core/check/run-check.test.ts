@@ -35,7 +35,7 @@ describe("runCheck", () => {
     expect(button?.source).toBe("src/Button.tsx");
     expect(button?.findings).toEqual([
       {
-        ruleId: "SPB104",
+        ruleId: "DSL104",
         severity: "error",
         prop: "variant",
         message: 'Allowed value "danger" is missing in code.',

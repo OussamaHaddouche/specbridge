@@ -40,7 +40,7 @@ function compareOneProp(
     findings.push(
       createFinding(
         {
-          ruleId: "SPB103",
+          ruleId: "DSL103",
           prop: propName,
           message: `Required mismatch for prop "${propName}".`,
           expected: contractProp.required,
@@ -58,7 +58,7 @@ function compareOneProp(
     findings.push(
       createFinding(
         {
-          ruleId: "SPB107",
+          ruleId: "DSL107",
           prop: propName,
           message:
             codeProp.default === undefined
@@ -79,7 +79,7 @@ function compareOneProp(
       findings.push(
         createFinding(
           {
-            ruleId: "SPB102",
+            ruleId: "DSL102",
             prop: propName,
             message: `Type mismatch for prop "${propName}".`,
             expected: { values: contractProp.values },
@@ -96,7 +96,7 @@ function compareOneProp(
         findings.push(
           createFinding(
             {
-              ruleId: "SPB104",
+              ruleId: "DSL104",
               prop: propName,
               message: `Allowed value "${value}" is missing in code.`,
               expected: contractProp.values,
@@ -113,7 +113,7 @@ function compareOneProp(
         findings.push(
           createFinding(
             {
-              ruleId: "SPB106",
+              ruleId: "DSL106",
               prop: propName,
               message: `Value "${value}" is allowed in code but not listed in the contract.`,
               expected: contractProp.values,
@@ -132,7 +132,7 @@ function compareOneProp(
     findings.push(
       createFinding(
         {
-          ruleId: "SPB102",
+          ruleId: "DSL102",
           prop: propName,
           message: `Type mismatch for prop "${propName}".`,
           expected: { type: contractProp.type },
@@ -160,7 +160,7 @@ export function compareProps(
       findings.push(
         createFinding(
           {
-            ruleId: "SPB101",
+            ruleId: "DSL101",
             prop: propName,
             message: `Prop "${propName}" is listed in the contract but missing in code.`,
             expected: propName,
@@ -179,7 +179,7 @@ export function compareProps(
       findings.push(
         createFinding(
           {
-            ruleId: "SPB105",
+            ruleId: "DSL105",
             prop: propName,
             message: `Prop "${propName}" exists in code but is not listed in the contract.`,
             actual: propName,

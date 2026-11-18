@@ -1,4 +1,4 @@
-import type { Report } from "@specbridge/core";
+import type { Report } from "@dslint/core";
 
 export function formatReport(
   report: Report,
@@ -45,7 +45,7 @@ function formatText(report: Report): string {
 }
 
 function formatMarkdown(report: Report): string {
-  const lines: string[] = ["# SpecBridge report", ""];
+  const lines: string[] = ["# DsLint report", ""];
 
   for (const component of report.components) {
     lines.push(`## ${component.name}`);

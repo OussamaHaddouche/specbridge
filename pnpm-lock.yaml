@@ -168,7 +168,7 @@ importers:
 
   packages/cli:
     dependencies:
-      '@specbridge/core':
+      '@dslint/core':
         specifier: workspace:*
         version: link:../core
       tsx:

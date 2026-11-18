@@ -47,7 +47,7 @@ describe("runCli", () => {
 
     expect(code).toBe(1);
     expect(session.buffers.stdout).toContain("Button");
-    expect(session.buffers.stdout).toContain("SPB104");
+    expect(session.buffers.stdout).toContain("DSL104");
     expect(session.buffers.stderr).toBe("");
   });
 
@@ -85,7 +85,7 @@ describe("runCli", () => {
 
     expect(code).toBe(1);
     expect(session.buffers.stdout).toContain("## Button");
-    expect(session.buffers.stdout).toContain("SPB104");
+    expect(session.buffers.stdout).toContain("DSL104");
     expect(session.buffers.stdout).toMatch(/Checked \d+/);
     expect(session.buffers.stderr).toBe("");
     expect(fs.readFileSync(outPath, "utf8")).toBe(session.buffers.stdout);

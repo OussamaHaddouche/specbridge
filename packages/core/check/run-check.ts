@@ -16,7 +16,7 @@ export type CheckResult = {
 };
 
 export function runCheck(rootPath: string): CheckResult {
-  const config = loadConfig(path.join(rootPath, "specbridge.config.json"));
+  const config = loadConfig(path.join(rootPath, "dslint.config.json"));
   const contractPaths = findContractPaths(rootPath, config.contracts);
   const { program, checker } = createProgram({
     rootPath,

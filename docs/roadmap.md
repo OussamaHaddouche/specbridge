@@ -8,7 +8,7 @@ Personal project. Packages stay in this monorepo. No npm publish.
 
 **v0.2.0**: Markdown report (`--format markdown`).
 
-**v0.3.0**: parameter-default checks (SPB107); `@specbridge/core` 0.3.0.
+**v0.3.0**: parameter-default checks (DSL107); `@dslint/core` 0.3.0.
 
 ## Next: packages
 
@@ -16,7 +16,7 @@ Ship these before the showcase:
 
 - [ ] Richer prop shapes: nested objects, function props, index signatures where useful
 - [ ] Clearer resolve for common React patterns (`forwardRef`, better props-type errors)
-- [ ] Broader defaults where SpecBridge can prove a value; drop or implement SPB401 for real
+- [ ] Broader defaults where DsLint can prove a value; drop or implement DSL401 for real
 - [ ] CLI: `--help`, optional `--config` / project root override
 - [ ] Authoring: draft a contract from TypeScript; diff two contract versions
 

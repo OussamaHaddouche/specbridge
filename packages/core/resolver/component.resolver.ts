@@ -70,7 +70,7 @@ export function resolveComponent(
       ok: false,
       finding: createFinding(
         {
-          ruleId: "SPB001",
+          ruleId: "DSL001",
           message: `Source file not found: ${resolveOptions.source}`,
           expected: resolveOptions.source,
         },
@@ -85,7 +85,7 @@ export function resolveComponent(
       ok: false,
       finding: createFinding(
         {
-          ruleId: "SPB001",
+          ruleId: "DSL001",
           message: `Source file is not part of the TypeScript project: ${resolveOptions.source}`,
           expected: resolveOptions.source,
         },
@@ -99,7 +99,7 @@ export function resolveComponent(
       ok: false,
       finding: createFinding(
         {
-          ruleId: "SPB001",
+          ruleId: "DSL001",
           message: `Export not found: ${resolveOptions.exportName}`,
           expected: resolveOptions.exportName,
         },
@@ -113,7 +113,7 @@ export function resolveComponent(
       ok: false,
       finding: createFinding(
         {
-          ruleId: "SPB002",
+          ruleId: "DSL002",
           message: `Props type not found: ${resolveOptions.propsType}`,
           expected: resolveOptions.propsType,
         },

@@ -1,4 +1,4 @@
-import { FatalLoadError, runCheck } from "@specbridge/core";
+import { FatalLoadError, runCheck } from "@dslint/core";
 import { formatReport } from "./format-report";
 import { parseArgs } from "./parse-args";
 

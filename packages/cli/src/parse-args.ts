@@ -11,7 +11,7 @@ export function parseArgs(argv: string[]): ParseArgsResult {
   const [command, ...rest] = argv;
 
   if (command === undefined) {
-    return { ok: false, message: "Missing command. Try: specbridge check" };
+    return { ok: false, message: "Missing command. Try: dslint check" };
   }
 
   if (command !== "check") {
